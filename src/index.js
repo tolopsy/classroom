@@ -1,26 +1,32 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
-import { createStore, compose, applyMiddleware, combineReducers } from "redux";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import authReducer from "./store/reducers/auth";
+import App from './App'
+import reportWebVitals from './reportWebVitals';
 
-const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+import { createStore, compose, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import reducer from './store/reducers/auth';
+import { Provider } from 'react-redux';
 
-const rootReducer = combineReducers({
-  auth: authReducer
-});
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const store = createStore(rootReducer, composeEnhances(applyMiddleware(thunk)));
+const store = createStore(reducer, composeEnhancer(
+    applyMiddleware(thunk)
+));
 
 const app = (
   <Provider store={store}>
     <App />
   </Provider>
+)
+
+
+ReactDOM.render(
+  app, document.getElementById('root')
 );
 
-ReactDOM.render(app, document.getElementById("root"));
-registerServiceWorker();
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
