@@ -44,11 +44,17 @@ export const authLogin = (username, password) => {
             username: username,
             password: password
         }).then(res => {
-            const token = res.data.key;
-            const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-            localStorage.setItem('token', token);
-            localStorage.setItem('expirationDate', expirationDate);
-            dispatch(authSuccess(token));
+            console.log(res.data)
+            const user = {
+                token: res.data.key,
+                username,
+                userId: res.data.user,
+                is_student: res.data.user_type.is_student,
+                is_teacher: res.data.user_type.is_teacher,
+                expirationDate: new Date(new Date().getTime() + 3600 * 1000),
+            }
+            localStorage.setItem('user', JSON.stringify(user));
+            dispatch(authSuccess(user));
             dispatch(checkAuthTimeout(3600 * 1000));
         }).catch(err => {
             dispatch(authFail(err))
@@ -65,6 +71,7 @@ export const authSignup = (username, email, password1, password2, is_student) =>
             const user = {
                 token: res.data.key,
                 username,
+                userId: res.data.user,
                 is_student,
                 is_teacher: !is_student,
                 expirationDate: new Date(new Date().getTime() + 3600 * 1000),
