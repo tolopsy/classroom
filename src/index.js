@@ -4,16 +4,22 @@ import ReactDOM from 'react-dom';
 import App from './App'
 import reportWebVitals from './reportWebVitals';
 
-import { createStore, compose, applyMiddleware} from 'redux';
+import { createStore, compose, applyMiddleware, combineReducers} from 'redux';
 import thunk from 'redux-thunk';
-import reducer from './store/reducers/auth';
+import authReducer from './store/reducers/auth';
+import assignmentReducer from './store/reducers/assignments';
 import { Provider } from 'react-redux';
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const store = createStore(reducer, composeEnhancer(
+const rootReducer = combineReducers({
+  auth: authReducer,
+  assignments: assignmentReducer,
+});
+
+const store = createStore(rootReducer, composeEnhancer(
     applyMiddleware(thunk)
-));
+)); 
 
 const app = (
   <Provider store={store}>
