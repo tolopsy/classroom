@@ -34,7 +34,7 @@ class AssignmentList extends React.Component {
                                 size="large"
                                 bordered
                                 dataSource={this.props.assignments}
-                                renderItem={item => <List.Item>{item}</List.Item>}
+                                renderItem={item => <List.Item>{item.title}</List.Item>}
                             />
                         </div>
                 }
