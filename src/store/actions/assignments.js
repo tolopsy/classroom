@@ -26,9 +26,9 @@ export const getAssignment = token => {
         dispatch(getAssignmentListStart());
         axios.defaults.headers = {
             "Content-Type": "application/json",
-            "Authorization": `Token ${token}`,
+            "Authorization": `${token}`,
         }
-        axios.get("https://127.0.0.1:8000/assignments/").then(
+        axios.get("http://127.0.0.1:8000/assignments/").then(
             res => {
                 const assignments = res.data;
                 dispatch(getAssignmentListSuccess(assignments));
