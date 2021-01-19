@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { List, Divider, Skeleton } from 'antd';
 
@@ -18,8 +19,17 @@ class AssignmentList extends React.Component {
                 this.props.getAssignment(newProps.token);
             }
         }
-
     }
+
+    renderItem(item) {
+        return (
+            <Link to="assignments/1">
+                <List.Item>{item.title}</List.Item>
+            </Link>
+        )
+    }
+
+
     render() {
         return (
             <Hoc>
@@ -34,7 +44,7 @@ class AssignmentList extends React.Component {
                                 size="large"
                                 bordered
                                 dataSource={this.props.assignments}
-                                renderItem={item => <List.Item>{item.title}</List.Item>}
+                                renderItem={item => this.renderItem(item)}
                             />
                         </div>
                 }

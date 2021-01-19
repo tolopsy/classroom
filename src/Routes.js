@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import LoginForm from './containers/Login';
 import SignupForm from './containers/Signup';
 import Profile from './containers/Profile';
-import AssignmentList from './containers/Assignment';
+import AssignmentList from './containers/AssignmentList';
 
 const BaseRouter = () => {
   return (
