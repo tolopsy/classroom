@@ -10,30 +10,26 @@ const radioStyle = {
 };
 
 class Choices extends React.Component {
-    state = {
-        value: 1,
-    }
-
-    onChange = (e) => {
-        console.log("checked ", e.target.value);
-        this.setState({
-            value: e.target.value,
-        });
-    }
-
     render() {
+        const { questionId } = this.props;
+        const { userAnswers } = this.props;
         return (
-            <RadioGroup onChange={this.onChange} value={this.state.value}>
-                <Radio style={radioStyle} value={1}>
-                    Option A
-                </Radio>
-                <Radio style={radioStyle} value={2}>
-                    Option B
-                </Radio>
-                <Radio style={radioStyle} value={3}>
-                    Option C
-                </Radio>
+            <RadioGroup
+                onChange={(e, qId) => this.props.change(e, questionId)}
+                value={userAnswers[questionId] !== undefined && userAnswers[questionId] !== null ?
+                    userAnswers[questionId] : null}
+            >
+                {this.props.choices.map((c, index) => {
+                    return (
+                        <Radio style={radioStyle} value={c}>
+                            {c}
+                        </Radio>
+                    )
+                })}
+
             </RadioGroup>
         )
     }
 }
+
+export default Choices;
