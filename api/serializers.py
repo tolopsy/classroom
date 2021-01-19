@@ -9,11 +9,10 @@ class StringSerializer(serializers.StringRelatedField):
 
 class QuestionSerializer(serializers.ModelSerializer):
     choices = StringSerializer(many=True)
-    answer = StringSerializer()
 
     class Meta:
         model = Question
-        fields = ('__all__')
+        fields = ('id', 'question', 'choices', 'order', 'assignment')
 
 
 class AssignmentSerializer(serializers.ModelSerializer):
