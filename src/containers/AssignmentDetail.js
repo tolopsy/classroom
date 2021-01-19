@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card } from 'antd';
+import { Card, Skeleton } from 'antd';
 
 import { getAssignmentDetail } from '../store/actions/assignments';
+import Question from './Question';
+import Hoc from '../hoc/hoc';
 
 class AssignmentDetail extends React.Component {
     componentDidMount() {
@@ -20,15 +22,38 @@ class AssignmentDetail extends React.Component {
     }
 
     render() {
-        const title = this.props.assignment.title
+        const assignment = this.props.assignment
+        console.log("Assignemnt", assignment);
         return (
-            <div>
-                <Card title={title}>
-                    <Card type="inner" title="Inner Card title">
-                        Inner Card content
-                    </Card>
-                </Card>
-            </div>
+            <Hoc>
+                {Object.keys(assignment).length >  0 ? (
+                    <Hoc>
+                        {
+                            this.props.loading ?
+                                <Skeleton />
+                                :
+
+                                <div>
+                                    <Card title={assignment.title}>
+                                        <Question
+                                            questions={assignment.questions.map(
+                                                q => {
+                                                    return (
+                                                        <Card type="inner" key={q.id} title={`${q.order}. ${q.question}`}>
+                                                        </Card>
+                                                    )
+                                                }
+                                            )}
+                                        />
+                                    </Card>
+                                </div>
+                        }
+                    </Hoc>
+                )
+                :null
+                }
+            </Hoc>
+
         )
     }
 }
