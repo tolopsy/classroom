@@ -5,11 +5,13 @@ import LoginForm from './containers/Login';
 import SignupForm from './containers/Signup';
 import Profile from './containers/Profile';
 import AssignmentList from './containers/AssignmentList';
+import AssignmentDetail from './containers/AssignmentDetail';
 
 const BaseRouter = () => {
   return (
     <div>
       <Route exact path='/' component={AssignmentList} />
+      <Route exact path='/assignments/:id' component={AssignmentDetail} />
       <Route exact path='/login' component={LoginForm} />
       <Route exact path='/signup' component={SignupForm} />
       <Route exact path='/profile/:id' component={Profile} />

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { List, Divider, Skeleton } from 'antd';
 
-import * as actions from '../store/actions/assignments';
+import { getAssignment } from '../store/actions/assignments';
 import Hoc from '../hoc/hoc';
 
 class AssignmentList extends React.Component {
@@ -64,7 +64,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getAssignment: (token) => dispatch(actions.getAssignment(token))
+        getAssignment: (token) => dispatch(getAssignment(token))
     };
 }
 
