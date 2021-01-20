@@ -34,7 +34,14 @@ class CustomLayout extends Component {
                 <Content style={{ padding: '0 50px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item><Link to='/'>Home</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item><Link to={`/profile/${this.props.userId}`}>Profile</Link></Breadcrumb.Item>
+                        {this.props.token !== null ?
+                            <Breadcrumb.Item><Link to={`/profile/${this.props.userId}`}>Profile</Link></Breadcrumb.Item>
+                            : null
+                        }
+                        {this.props.token !== null && this.props.is_teacher ?
+                            <Breadcrumb.Item><Link to='/create'>Create</Link></Breadcrumb.Item>
+                            : null
+                        }
                     </Breadcrumb>
                     <div className="site-layout-content">
                         {this.props.children}
@@ -49,7 +56,9 @@ class CustomLayout extends Component {
 
 const mapStateToProps = state => {
     return {
-        userId: state.auth.userId
+        userId: state.auth.userId,
+        token: state.auth.token,
+        is_teacher: state.auth.is_teacher
     }
 }
 
